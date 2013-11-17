@@ -77,6 +77,25 @@ module.exports = function(grunt) {
       }
     },
 
+    less: {
+      development: {
+        options: {
+          paths: ["assets/css"]
+        },
+        files: {
+          "screen.css": "screen.less"
+        }
+      },
+      production: {
+        options: {
+          compress: true
+        },
+        files: {
+          "dist/css/screen.css": "src/css/screen.less"
+        }
+      }
+    },
+
     // Before generating any new files,
     // remove any previously-created files.
     clean: ['<%= config.dist %>/**/*.{html,xml}']
@@ -87,6 +106,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('assemble-less');
 
   grunt.registerTask('server', [
     'clean',
