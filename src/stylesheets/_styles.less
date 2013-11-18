@@ -1,0 +1,367 @@
+/* -------------------------------------------
+_styles.scss
+thegreatsunra.com
+Copyright (c) 2008-2013 Dane Petersen
+------------------------------------------- */
+
+html {
+  padding: 10px 0 0 0;
+  background-color: @accent_color;
+  .background-image(url('/images/diag-l-10.png'), (linear-gradient(darken(@accent_color, 20%), @accent_color 4px, @accent_color)));
+
+  font-family: georgia, times new roman, serif;
+}
+
+body {
+  background-color: @white;
+}
+
+h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ul, ol, li {
+  line-height: @line_height;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+  color: @light_black;
+  .reset_margin_padding;
+}
+
+h1 {
+  font-size: 48px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+p, dl, dt, dd, ul, ol, li {
+  color: @off_black;
+}
+
+a {
+  color: @link_color;
+  text-decoration: none;
+  &:hover {
+    color: @link_color_hover;
+  }
+  &:focus {
+    outline: none;
+    text-decoration: underline;
+    -moz-outline-style: none;
+  }
+  &:active {
+    text-decoration: none;
+  }
+}
+
+.top-wrap {
+  .top;
+  border-top: 1px solid lighten(@dark_background_color, 40%);
+  h1 {
+    .reset_margin_padding;
+    a {
+      display: block;
+      padding: 20px 15px 5px 0;
+      margin-bottom: 10px;
+      font-size: @headline_font;
+      color: @top_and_bottom_link_color_current;
+      text-decoration: none;
+      &:hover {
+        color: @top_and_bottom_link_color_current_hover;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.bottom-wrap {
+  .bottom;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  border-top: 1px solid @off_black;
+  a {
+    color: @top_and_bottom_link_color;
+    text-decoration: none;
+    &:hover {
+      color: @top_and_bottom_link_color_hover;
+      text-decoration: underline;
+    }
+  }
+}
+
+.header {
+  padding-bottom: 20px;
+  border-bottom: 1px solid @grey;
+}
+
+nav {
+  ul {
+    .reset_list_style;
+    .reset_margin_padding;
+  }
+  li {
+    float: left;
+    margin-right: 35px;
+    &:last-child {
+      margin-right: 0;
+    }
+    &.active {
+      a {
+        color: @top_and_bottom_link_color_current;
+      }
+    }
+    a {
+      color: @top_and_bottom_link_color;
+      text-decoration: none;
+      display: block;
+      /* padding to make targets fat finger friendly */
+      padding: 15px 30px 30px 0;
+      &:hover {
+        color: @top_and_bottom_link_color_hover;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.main-wrap {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-top: 1px solid @white;
+  .background-image(linear-gradient(#aaa, @grey 10px, @white 50px));
+}
+
+.content {
+  padding-top: 20px;
+  min-height: 500px;
+  img {
+    margin-bottom: 4px;
+  }
+}
+
+ul.portfolio-list,
+ul.home-portfolio-list {
+  .reset_list_style;
+  line-height: @line_height;
+  li {
+    margin-bottom: 10px;
+  }
+  h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .portfolio-description {
+    margin-top: 36px;
+  }
+}
+
+.content {
+  min-height: 500px;
+  h2 {
+    font-size: 32px;
+    margin-bottom: 24px;
+  }
+  h3 {
+    font-size: 24px;
+    margin-bottom: 18px;
+  }
+  p {
+    margin-bottom: 24px;
+    &.caption {
+      font-size: 12px;
+      margin-top: 0;
+    }
+  }
+}
+
+.project-meta {
+  h2 {
+    font-size: 22px;
+    margin-top: 8px;
+    margin-bottom: 2px;
+  }
+  p {
+    margin-top: 0;
+    margin-bottom: 18px;
+  }
+  ul {
+    .reset_list_style;
+    li {
+      margin-bottom: 18px;
+    }
+  }
+}
+
+.img-padding {
+  padding: @img_padding;
+}
+
+.img-border {
+  border: @img_border solid @img_border_color;
+  a & {
+    border: @img_border solid @link_img_border_color;
+  }
+  a:hover & {
+    border-color: @black;
+  }
+}
+
+/* ===Photo Gallery Styles=== */
+/* ------------------------------------------- */
+
+.ul-gallery-extend () {
+  .reset_list_style;
+  .reset_margin_padding;
+  li {
+    display: block;
+    float: left;
+    margin-right: @gutter_width;
+    &.last {
+      margin-right: 0 !important;
+    }
+  }
+  img {
+    margin-bottom: 4px;
+  }
+  a {
+    img {
+      border-color: @link_img_border_color;
+    }
+    &:hover {
+      img {
+        border-color: @black;
+      }
+    }
+  }
+}
+
+.ul-gallery {
+  .ul-gallery-extend;
+  li {
+    img {
+      padding: @img_padding;
+      border: @img_border solid @img_border_color;
+    }
+  }
+}
+
+ul.ul-gallery-alt {
+  .ul-gallery;
+  li {
+    img {
+      padding: 0;
+      border: 0;
+    }
+  }
+}
+
+// @for @i from 1 through (@column_count / 2) {
+//   // .span-1 { ... }, .span-2 { ... }, span-3 { ... }
+//   ul.#{@gallery_item_slug}-#{@i} {
+//     li {
+//       width: (@column_width * @i) + (@gutter_width * (@i - 1));
+//       img {
+//         max-width: ((@column_width * @i) + (@gutter_width * (@i - 1))) - ((@img_padding * 2) + (@img_border * 2))
+//       }
+//     }
+//   }
+// }
+
+// @for @i from 1 through (@column_count / 2) {
+//   // .span-1 { ... }, .span-2 { ... }, span-3 { ... }
+//   ul.#{@gallery_item_slug}-#{@i}-alt {
+//     li {
+//       width: (@column_width * @i) + (@gutter_width * (@i - 1));
+//       img {
+//         max-width: (@column_width * @i) + (@gutter_width * (@i - 1))
+//       }
+//     }
+//   }
+// }
+
+ul.social-icons {
+  .reset_list_style;
+  li {
+    float: right;
+    margin-left: 10px;
+    &:last-child {
+      margin-left: 0;
+    }
+  }
+}
+
+ul.social-networks {
+  .reset_list_style;
+  li {
+    margin-bottom: 12px;
+  }
+}
+
+body.body-bigwinds .header {
+  background: transparent url(/images/bigwinds/on-rails.png) 760px 12px no-repeat;
+  min-height: 200px;
+  h3 {
+    padding-right: 220px;
+  }
+}
+
+body.body-energymonitor .header {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+#fragment-tabs {
+  li a {
+    border-bottom: 1px solid #999;
+  }
+  li.ui-tabs-selected a {
+    border: 1px solid #999;
+    border-bottom: 0;
+    color: @black;
+  }
+}
+
+#fragment-tabs {
+  font-size: 12px; /* 16px = 1em ... 3/4 of 16px = 12px */
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 32px 0;
+  li {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    a {
+      float: left;
+      display: block;
+      padding: 3px 12px 2px 12px;
+      margin-bottom: -1px;
+      list-style: none;
+      text-decoration: none;
+    }
+  }
+  li.ui-tabs-selected a {
+    padding: 2px 11px 2px 11px;
+  }
+}
+
+.ui-tabs-hide {
+  position: absolute;
+  left: -5000px;
+}
+
+.chromeframe {
+  a {
+    text-decoration: underline;
+    color: @off_white;
+    &:hover {
+      text-decoration: none;
+      color: @white;
+    }
+  }
+}

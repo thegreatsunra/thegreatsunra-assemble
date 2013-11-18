@@ -1,0 +1,34 @@
+/* -------------------------------------------
+_mixins.scss
+thegreatsunra.com
+Copyright (c) 2008-2013 Dane Petersen
+------------------------------------------- */
+
+.reset_list_style () {
+  list-style: none;
+  padding-left: 0;
+}
+
+.top_and_bottom () {
+  background-color: @top_and_bottom_background_color;
+  color: @white;
+  p {
+    color: @off_white;
+  }
+}
+
+.top () {
+  .top_and_bottom;
+  .background-image(url('/images/diag-r-10.png'), linear-gradient(lighten(@top_and_bottom_background_color, 15%), @top_and_bottom_background_color 40%, darken(@top_and_bottom_background_color, 5%) 95%, darken(@top_and_bottom_background_color, 10%)));
+}
+
+.bottom () {
+  .top_and_bottom;
+  .background-image(url('/images/diag-r-10.png'), linear-gradient(darken(@top_and_bottom_background_color, 10%), darken(@top_and_bottom_background_color, 4%) 10px));
+  border-bottom: 1px solid darken(@top_and_bottom_background_color, 10%)
+}
+
+.reset_margin_padding () {
+  margin: 0;
+  padding: 0;
+}
