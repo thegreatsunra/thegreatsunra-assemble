@@ -1,0 +1,17 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Dane Petersen -- Designer, Developer, Writer -- http://twitter.com/thegreatsunra
+
+# THANKS
+
+    Jake Ingman -- http://twitter.com/jingman
+    PJ Onori -- http://twitter.com/somerandomdude
+    Rob Dodson -- http://twitter.com/rob_dodson
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3, JS, LESS, Node
+    HTML5 Boilerplate, Normalize.css, jQuery, Harp
