@@ -1,4 +1,24 @@
 # ================
+# thegreatsunra
+# ================
+# Ignore all images
+src/public/images/*
+
+# Except icons and layout images
+!src/public/images/icons
+!src/public/images/diag*
+
+# Ignore Bower components
+src/public/components
+
+
+# ================
+# Assemble
+# ================
+dist
+
+
+# ================
 # Assemble Defaults
 # ================
 lib-cov
