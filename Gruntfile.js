@@ -73,7 +73,15 @@ module.exports = function(grunt) {
         },
         files: {
           '<%= config.dist %>/': ['<%= config.src %>/templates/pages/*.hbs']
-        }
+        },
+      }
+    },
+
+    copy: {
+      main: {
+        files: [
+          {expand: true, cwd: 'src/public', src: '**', dest: 'dist/', dot: true}
+        ]
       }
     },
 
@@ -91,7 +99,7 @@ module.exports = function(grunt) {
           compress: true
         },
         files: {
-          "dist/css/screen.css": "src/css/screen.less"
+          "dist/stylesheets/screen.css": "src/stylesheets/screen.less"
         }
       }
     },
@@ -103,6 +111,7 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('assemble');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -117,7 +126,9 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'clean',
-    'assemble'
+    'assemble',
+    'less',
+    'copy'
   ]);
 
   grunt.registerTask('default', [
