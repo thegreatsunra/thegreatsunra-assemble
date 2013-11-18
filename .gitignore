@@ -1,3 +1,6 @@
+# ================
+# Assemble Defaults
+# ================
 lib-cov
 *.seed
 *.log
@@ -15,7 +18,17 @@ results
 npm-debug.log
 node_modules
 
+# ================
+# SublimeText
+# ================
 *.sublime-*
+
+# ================
+# TextMate
+# ================
+*.tmproj
+*.tmproject
+tmtags
 
 # ================
 # OS X
