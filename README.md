@@ -26,7 +26,7 @@ npm install && bower install
 
 * Open [http://localhost:9000](http://localhost:9000) in your web browser to view the static site (minus the content images, which are not included in the repository)
 
-* Start hacking away by modifying the contents of the `src` directory.
+* Start hacking away by modifying the contents of the `src` directory
 
 * With `grunt server` running, changes to any files (including layouts, templates, pages and LESS files) will be detected, and the static site will be automatically regenerated
 
