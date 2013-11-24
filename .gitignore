@@ -9,7 +9,7 @@ src/public/images/*
 !src/public/images/diag*
 
 # Ignore Bower components
-src/public/components
+src/components
 
 
 # ================

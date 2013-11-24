@@ -1,36 +1,143 @@
-/*
- * Generated on 2013-11-17
- * generator-assemble v0.4.3
- * https://github.com/assemble/generator-assemble
- *
- * Copyright (c) 2013 Hariadi Hinta
- * Licensed under the MIT license.
- */
-
-'use strict';
-
-// # Globbing
-// for performance reasons we're only matching one level down:
-// '<%= config.src %>/templates/pages/{,*/}*.hbs'
-// use this if you want to match all subfolders:
-// '<%= config.src %>/templates/pages/**/*.hbs'
-
 module.exports = function(grunt) {
 
+  'use strict';
   require('time-grunt')(grunt);
 
-  // Project configuration.
   grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
 
+    /* define variables for Gruntfile */
     config: {
       src: 'src',
-      dist: 'dist'
+      dest: 'dist',
+      assetsFolder: 'public',
+      componentsFolder: 'components',
+      jsFolder: 'javascripts',
+      jsMainFile: 'application',
+      cssFolder: 'stylesheets',
+      cssMainFile: 'screen',
+      imgFolder: 'images'
     },
 
+    /* concat all javascripts into a single file */
+    concat: {
+      options: {
+        separator: ';'
+      },
+      dist: {
+        src: ['<%= config.src %>/<%= config.jsFolder %>/**/*.js'],
+        dest: '<%= config.dest %>/<%= config.jsFolder %>/<%= config.jsMainFile %>.js'
+      }
+    },
+
+    /* compress concatenated javascripts */
+    uglify: {
+      options: {
+        banner: '/*! <%= config.jsMainFile %>.js (generated <%= grunt.template.today("dd-mm-yyyy") %>) */\n'
+      },
+      dist: {
+        files: {
+          '<%= config.dest %>/<%= config.jsFolder %>/<%= config.jsMainFile %>.min.js': ['<%= concat.dist.dest %>']
+        }
+      }
+    },
+
+    /* run jshint against all javascripts, including Gruntfile */
+    jshint: {
+      files: ['Gruntfile.js', '<%= config.src %>/<%= config.jsFolder %>/**/*.js']
+    },
+
+    /* copy static assets into root of destination */
+    copy: {
+      assets: {
+        files: [
+          {
+            expand: true,
+            cwd: '<%= config.src %>/<%= config.assetsFolder %>',
+            src: '**',
+            dest: '<%= config.dest %>/',
+            dot: true
+          }
+        ]
+      },
+      /* copy bower components as well */
+      components: {
+        files: [
+          {
+            expand: true,
+            cwd: '<%= config.src %>/<%= config.componentsFolder %>',
+            src: '**',
+            dest: '<%= config.dest %>/<%= config.componentsFolder %>',
+            dot: true
+          }
+        ]
+      }
+    },
+
+    /* clean out destination folder by brute force */
+    clean: {
+      main: ["<%= config.dest %>/**/*"],
+    },
+
+    /* compile LESS manifest file into CSS */
+    less: {
+      development: {
+        options: {
+          compress: false
+        },
+        files: {
+          "<%= config.dest %>/<%= config.cssFolder %>/<%= config.cssMainFile %>.css": "<%= config.src %>/<%= config.cssFolder %>/<%= config.cssMainFile %>.less"
+        }
+      },
+      production: {
+        options: {
+          compress: true
+        },
+        files: {
+          "<%= config.dest %>/<%= config.cssFolder %>/<%= config.cssMainFile %>.min.css": "<%= config.src %>/<%= config.cssFolder %>/<%= config.cssMainFile %>.less"
+        }
+      }
+    },
+
+    /* Use Assemble to generate all HTML pages */
+    assemble: {
+      pages: {
+        options: {
+          flatten: true,
+          layout: '<%= config.src %>/assemble/layouts/default.hbs',
+          data: '<%= config.src %>/assemble/data/*.{json,yml}',
+          partials: '<%= config.src %>/assemble/partials/*.hbs'
+        },
+        files: {
+          '<%= config.dest %>/': ['<%= config.src %>/assemble/pages/*.hbs']
+        }
+      },
+      portfolio: {
+        options: {
+          flatten: true,
+          layout: '<%= config.src %>/assemble/layouts/default.hbs',
+          data: '<%= config.src %>/assemble/data/*.{json,yml}',
+          partials: '<%= config.src %>/assemble/partials/*.hbs'
+        },
+        files: {
+          '<%= config.dest %>/portfolio/': ['<%= config.src %>/assemble/pages/portfolio/*.hbs']
+        }
+      }
+    },
+
+    /* watch for file changes and run tasks in response */
     watch: {
+      js: {
+        files: ['<%= jshint.files %>'],
+        tasks: ['jshint', 'concat', 'uglify']
+      },
       assemble: {
-        files: ['<%= config.src %>/{content,data,templates}/{,*/}*.{md,hbs,yml}'],
+        files: ['<%= config.src %>/assemble/**/*.{hbs,yml}'],
         tasks: ['assemble']
+      },
+      less: {
+        files: ['<%= config.src %>/<%= cssFolder %>/**/*.{css,less}'],
+        tasks: ['less']
       },
       livereload: {
         options: {
@@ -45,69 +152,6 @@ module.exports = function(grunt) {
       }
     },
 
-    connect: {
-      options: {
-        port: 9000,
-        livereload: 35729,
-        // change this to '0.0.0.0' to access the server from outside
-        hostname: 'localhost'
-      },
-      livereload: {
-        options: {
-          open: true,
-          base: [
-            '<%= config.dist %>'
-          ]
-        }
-      }
-    },
-
-    assemble: {
-      pages: {
-        options: {
-          flatten: true,
-          assets: '<%= config.dist %>/assets',
-          layout: '<%= config.src %>/templates/layouts/default.hbs',
-          data: '<%= config.src %>/data/*.{json,yml}',
-          partials: '<%= config.src %>/templates/partials/*.hbs'
-        },
-        files: {
-          '<%= config.dist %>/': ['<%= config.src %>/templates/pages/*.hbs']
-        },
-      }
-    },
-
-    copy: {
-      main: {
-        files: [
-          {expand: true, cwd: 'src/public', src: '**', dest: 'dist/', dot: true}
-        ]
-      }
-    },
-
-    less: {
-      development: {
-        options: {
-          paths: ["assets/css"]
-        },
-        files: {
-          "screen.css": "screen.less"
-        }
-      },
-      production: {
-        options: {
-          compress: true
-        },
-        files: {
-          "dist/stylesheets/screen.css": "src/stylesheets/screen.less"
-        }
-      }
-    },
-
-    // Before generating any new files,
-    // remove any previously-created files.
-    clean: ['<%= config.dist %>/**/*.{html,xml}']
-
   });
 
   grunt.loadNpmTasks('assemble');
@@ -115,24 +159,20 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('assemble-less');
+  grunt.loadNpmTasks('grunt-contrib-less');
 
-  grunt.registerTask('server', [
-    'clean',
-    'assemble',
-    'connect:livereload',
-    'watch'
-  ]);
-
-  grunt.registerTask('build', [
-    'clean',
-    'assemble',
-    'less',
-    'copy'
-  ]);
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-concat');
 
   grunt.registerTask('default', [
-    'build'
+    'clean', 
+    'less', 
+    'assemble', 
+    'jshint', 
+    'concat', 
+    'uglify', 
+    'copy'
   ]);
 
 };
