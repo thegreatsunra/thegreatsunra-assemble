@@ -76,7 +76,7 @@ module.exports = function(grunt) {
 
     /* clean out destination folder by brute force */
     clean: {
-      main: ["<%= config.dest %>/**/*"],
+      main: ['<%= config.dest %>/**/*', '<%= config.dest %>/.htaccess'],
     },
 
     /* compile LESS manifest file into CSS */
@@ -101,6 +101,12 @@ module.exports = function(grunt) {
 
     /* Use Assemble to generate all HTML pages */
     assemble: {
+      options: {
+        plugins: ['permalinks'],
+        permalinks: {
+          structure: ':basename/index.html'
+        }
+      },
       pages: {
         options: {
           flatten: true,
@@ -125,6 +131,24 @@ module.exports = function(grunt) {
       }
     },
 
+    /* connect server */
+    connect: {
+      options: {
+        port: 9000,
+        livereload: 35729,
+        // change this to '0.0.0.0' to access the server from outside
+        hostname: 'localhost'
+      },
+      livereload: {
+        options: {
+          open: true,
+          base: [
+            '<%= config.dest %>'
+          ]
+        }
+      }
+    },
+
     /* watch for file changes and run tasks in response */
     watch: {
       js: {
@@ -144,10 +168,10 @@ module.exports = function(grunt) {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
-          '<%= config.dist %>/{,*/}*.html',
-          '<%= config.dist %>/assets/{,*/}*.css',
-          '<%= config.dist %>/assets/{,*/}*.js',
-          '<%= config.dist %>/assets/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '<%= config.dest %>/{,*/}*.html',
+          '<%= config.dest %>/assets/{,*/}*.css',
+          '<%= config.dest %>/assets/{,*/}*.js',
+          '<%= config.dest %>/assets/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
     },
@@ -160,19 +184,27 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-less');
-
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
 
-  grunt.registerTask('default', [
+  grunt.registerTask('build', [
     'clean', 
     'less', 
     'assemble', 
     'jshint', 
     'concat', 
     'uglify', 
-    'copy'
+    'copy',
   ]);
 
+  grunt.registerTask('server', [
+    'build',
+    'connect',
+    'watch'
+  ]);
+
+  grunt.registerTask('default', [
+    'build'
+  ]);
 };
