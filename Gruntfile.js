@@ -12,9 +12,9 @@ module.exports = function(grunt) {
       dest: 'dist',
       assetsFolder: 'public',
       componentsFolder: 'components',
-      jsFolder: 'javascripts',
-      jsMainFile: 'application',
-      cssFolder: 'stylesheets',
+      jsFolder: 'js',
+      jsMainFile: 'scripts',
+      cssFolder: 'css',
       cssMainFile: 'screen',
       imgFolder: 'images'
     },
@@ -60,6 +60,7 @@ module.exports = function(grunt) {
           }
         ]
       },
+
       /* copy bower components as well */
       components: {
         files: [
