@@ -1,45 +1,47 @@
 {
-  "name": "thegreatsunra-assemble",
-  "description": "Source code for thegreatsunra.com, written in Assemble",
-  "version": "0.1.0",
-  "homepage": "http://assemble.io",
-  "author": {
-    "name": "Dane Petersen",
-    "url": "http://github.com/thegreatsunra/"
+  "name": "thegreatsunra-propeller",
+  "description": "Source code for thegreatsunra.com written using Propeller",
+  "version": "0.3.7",
+  "homepage": "http://thegreatsunra.com",
+  "author": "Dane Petersen",
+  "scripts": {
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/thegreatsunra/thegreatsunra-assemble.git"
+    "url": "https://github.com/thegreatsunra/thegreatsunra.com"
   },
   "bugs": {
-    "url": "https://github.com/thegreatsunra/thegreatsunra-assemble/issues"
-  },
-  "engines": {
-    "node": ">=0.8"
-  },
-  "scripts": {
-    "test": "grunt assemble"
-  },
-  "devDependencies": {
-    "assemble": "~0.4.22",
-    "grunt": "~0.4.1",
-    "time-grunt": "~0.1.1",
-    "permalinks": "~0.1.9",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-connect": "~0.5.0",
-    "grunt-contrib-copy": "~0.4.1",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-less": "~0.8.2",
-    "grunt-contrib-jshint": "~0.7.2",
-    "grunt-contrib-uglify": "~0.2.7",
-    "grunt-contrib-concat": "~0.3.0"
+    "url": "https://github.com/thegreatsunra/thegreatsunra.com/issues"
   },
   "licenses": [
     {
-      "type": "Attribution-NonCommercial-ShareAlike 3.0 Unported",
-      "url": "https://github.com/thegreatsunra/thegreatsunra-assemble/blob/master/LICENSE.md"
+      "type": "CC BY-NC-SA 3.0",
+      "url": "http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode"
     }
   ],
+  "devDependencies": {
+    "assemble": "~0.4.32",
+    "assemble-contrib-permalinks": "~0.3.1",
+    "csvtojson": "~0.1.5",
+    "grunt": "~0.4.2",
+    "time-grunt": "~0.2.3",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-connect": "~0.5.0",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-contrib-less": "~0.8.3",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-convert": "~0.1.6",
+    "load-grunt-tasks": "~0.2.0",
+    "lodash": "~2.4.0",
+    "permalinks": "~0.1.9"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
   "keywords": [
     "assemble",
     "templates",

@@ -1,17 +1,16 @@
 {
-  "name": "thegreatsunra-assemble",
-  "version": "0.1.0",
-  "homepage": "https://github.com/thegreatsunra/thegreatsunra-assemble",
+  "name": "thegreatsunra-propeller",
+  "version": "0.3.7",
+  "homepage": "http://thegreatsunra.com",
   "authors": [
-    "Dane Petersen <thegreatsunra@gmail.com>"
+    "Dane Petersen"
   ],
-  "description": "Source code for thegreatsunra.com",
-  "license": "Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported",
-  "private": true,
+  "description": "Source code for thegreatsunra.com written using Propeller",
+  "license": "CC BY-NC-SA 3.0",
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
+    "components",
     "test",
     "tests"
   ],

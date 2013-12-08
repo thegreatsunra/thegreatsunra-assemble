@@ -1,93 +1,127 @@
 module.exports = function(grunt) {
-
   'use strict';
+
   require('time-grunt')(grunt);
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    /* define variables for Gruntfile */
+    // define variables for Gruntfile
     config: {
-      src: 'src',
-      dest: 'dist',
-      assetsFolder: 'public',
-      componentsFolder: 'components',
-      jsFolder: 'js',
-      jsMainFile: 'scripts',
-      cssFolder: 'css',
-      cssMainFile: 'screen',
-      imgFolder: 'images'
+      src:              'src',
+      dist:             'dist',
+      appFolder:        'app',
+      componentsFolder: 'app/components',
+      jsFolder:         'app/js',
+      cssFolder:        'app/css',
+      imgFolder:        'app/img',
+      dataFolder:       'app/data',
+      cssMainFile:      'styles',
+      jsMainFile:       'scripts'
     },
 
-    /* concat all javascripts into a single file */
+    // concat all javascripts into a single file
     concat: {
       options: {
         separator: ';'
       },
       dist: {
         src: ['<%= config.src %>/<%= config.jsFolder %>/**/*.js'],
-        dest: '<%= config.dest %>/<%= config.jsFolder %>/<%= config.jsMainFile %>.js'
+        dest: '<%= config.dist %>/<%= config.jsFolder %>/<%= config.jsMainFile %>.js'
       }
     },
 
-    /* compress concatenated javascripts */
+    // compress concatenated javascripts
     uglify: {
       options: {
         banner: '/*! <%= config.jsMainFile %>.js (generated <%= grunt.template.today("dd-mm-yyyy") %>) */\n'
       },
       dist: {
         files: {
-          '<%= config.dest %>/<%= config.jsFolder %>/<%= config.jsMainFile %>.min.js': ['<%= concat.dist.dest %>']
+          '<%= config.dist %>/<%= config.jsFolder %>/<%= config.jsMainFile %>.min.js': ['<%= concat.dist.dest %>']
         }
       }
     },
 
-    /* run jshint against all javascripts, including Gruntfile */
+    // run jshint against all javascripts, including Gruntfile
     jshint: {
-      files: ['Gruntfile.js', '<%= config.src %>/<%= config.jsFolder %>/**/*.js']
+      files: ['Gruntfile.js', '<%= config.src %>/<%= config.jsFolder %>/*.js']
     },
 
-    /* copy static assets into root of destination */
+    // copy assets into root of destination
     copy: {
-      assets: {
+      data: {
         files: [
           {
             expand: true,
-            cwd: '<%= config.src %>/<%= config.assetsFolder %>',
+            cwd: '<%= config.src %>/<%= config.dataFolder %>',
             src: '**',
-            dest: '<%= config.dest %>/',
+            dest: '<%= config.dist %>/<%= config.dataFolder %>',
+          }
+        ]
+      },
+
+      img: {
+        files: [
+          {
+            expand: true,
+            cwd: '<%= config.src %>/<%= config.imgFolder %>',
+            src: '**',
+            dest: '<%= config.dist %>/<%= config.imgFolder %>',
+          }
+        ]
+      },
+
+      // js: {
+      //   files: [
+      //     {
+      //       expand: true,
+      //       cwd: '<%= config.src %>/<%= config.jsFolder %>',
+      //       src: '**/*.js',
+      //       dest: '<%= config.dist %>/<%= config.jsFolder %>',
+      //     }
+      //   ]
+      // },
+
+      src: {
+        files: [
+          {
+            expand: true,
+            cwd: '<%= config.src %>/',
+            src: ['*', '!assemble'],
+            dest: '<%= config.dist %>/',
             dot: true
           }
         ]
       },
 
-      /* copy bower components as well */
+      // copy bower components as well
       components: {
         files: [
           {
             expand: true,
             cwd: '<%= config.src %>/<%= config.componentsFolder %>',
             src: '**',
-            dest: '<%= config.dest %>/<%= config.componentsFolder %>',
+            dest: '<%= config.dist %>/<%= config.componentsFolder %>',
             dot: true
           }
         ]
       }
     },
 
-    /* clean out destination folder by brute force */
+    // clean out destination folder by brute force
     clean: {
-      main: ['<%= config.dest %>/**/*', '<%= config.dest %>/.htaccess'],
+      main: ['<%= config.dist %>/**/*', '<%= config.dist %>/.htaccess', '<%= config.src %>/assemble/<%= config.dataFolder %>/*.json'],
     },
 
-    /* compile LESS manifest file into CSS */
+    // compile LESS manifest file into CSS
     less: {
       development: {
         options: {
           compress: false
         },
         files: {
-          "<%= config.dest %>/<%= config.cssFolder %>/<%= config.cssMainFile %>.css": "<%= config.src %>/<%= config.cssFolder %>/<%= config.cssMainFile %>.less"
+          "<%= config.dist %>/<%= config.cssFolder %>/<%= config.cssMainFile %>.css": "<%= config.src %>/<%= config.cssFolder %>/<%= config.cssMainFile %>.less"
         }
       },
       production: {
@@ -95,15 +129,15 @@ module.exports = function(grunt) {
           compress: true
         },
         files: {
-          "<%= config.dest %>/<%= config.cssFolder %>/<%= config.cssMainFile %>.min.css": "<%= config.src %>/<%= config.cssFolder %>/<%= config.cssMainFile %>.less"
+          "<%= config.dist %>/<%= config.cssFolder %>/<%= config.cssMainFile %>.min.css": "<%= config.src %>/<%= config.cssFolder %>/<%= config.cssMainFile %>.less"
         }
       }
     },
 
-    /* Use Assemble to generate all HTML pages */
+    // Use Assemble to generate all HTML pages
     assemble: {
       options: {
-        plugins: ['permalinks'],
+        plugins: ['assemble-contrib-permalinks'],
         permalinks: {
           structure: ':basename/index.html'
         }
@@ -116,7 +150,7 @@ module.exports = function(grunt) {
           partials: '<%= config.src %>/assemble/partials/*.hbs'
         },
         files: {
-          '<%= config.dest %>/': ['<%= config.src %>/assemble/pages/*.hbs']
+          '<%= config.dist %>/': ['<%= config.src %>/assemble/pages/*.hbs']
         }
       },
       portfolio: {
@@ -127,12 +161,12 @@ module.exports = function(grunt) {
           partials: '<%= config.src %>/assemble/partials/*.hbs'
         },
         files: {
-          '<%= config.dest %>/portfolio/': ['<%= config.src %>/assemble/pages/portfolio/*.hbs']
+          '<%= config.dist %>/portfolio/': ['<%= config.src %>/assemble/pages/portfolio/*.hbs']
         }
       }
     },
 
-    /* connect server */
+    // create connect server
     connect: {
       options: {
         port: 9000,
@@ -144,68 +178,84 @@ module.exports = function(grunt) {
         options: {
           open: true,
           base: [
-            '<%= config.dest %>'
+            '<%= config.dist %>'
           ]
         }
       }
     },
 
-    /* watch for file changes and run tasks in response */
+    // watch for file changes and run tasks in response
     watch: {
       js: {
         files: ['<%= jshint.files %>'],
-        tasks: ['jshint', 'concat', 'uglify']
+        tasks: ['jshint', 'copy:js']
       },
       assemble: {
-        files: ['<%= config.src %>/assemble/**/*.{hbs,yml}'],
+        files: ['<%= config.src %>/assemble/**/*.{hbs,yml,json}'],
         tasks: ['assemble']
       },
       less: {
-        files: ['<%= config.src %>/<%= cssFolder %>/**/*.{css,less}'],
+        files: ['<%= config.src %>/<%= config.cssFolder %>/*.{css,less}'],
         tasks: ['less']
+      },
+      data: {
+        files: ['<%= config.src %>/<%= config.dataFolder %>/*.csv'],
+        tasks: ['convert']
       },
       livereload: {
         options: {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
-          '<%= config.dest %>/{,*/}*.html',
-          '<%= config.dest %>/assets/{,*/}*.css',
-          '<%= config.dest %>/assets/{,*/}*.js',
-          '<%= config.dest %>/assets/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '<%= config.dist %>/**/*.html',
+          '<%= config.dist %>/<%= config.cssFolder %>/*.css',
+          '<%= config.dist %>/<%= config.jsFolder %>/*.js'
         ]
       }
     },
 
+    // convert all CSV files into JSON files
+    convert: {
+      csvs: {
+        files: [
+          {
+            expand: true,
+            cwd: '<%= config.src %>/<%= config.dataFolder %>/',
+            src: ['*.csv'],
+            dest: '<%= config.src %>/assemble/data/',
+            ext: '.json'
+          }
+        ]
+      }
+    }
   });
 
-  grunt.loadNpmTasks('assemble');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-less');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-concat');
+  // automatically load all grunt-* tasks in --save-dev
+  require('load-grunt-tasks')(grunt);
 
+  // load assemble manually because it doesn't match the grunt-* pattern
+  grunt.loadNpmTasks('assemble');
+
+  // create build task
   grunt.registerTask('build', [
-    'clean', 
+    'clean',
+    'convert',
     'less', 
-    'assemble', 
     'jshint', 
     'concat', 
     'uglify', 
     'copy',
+    'assemble'
   ]);
 
+  // create server task
   grunt.registerTask('server', [
-    'build',
     'connect',
     'watch'
   ]);
 
+  // set default grunt task
   grunt.registerTask('default', [
-    'build'
+    'server'
   ]);
 };

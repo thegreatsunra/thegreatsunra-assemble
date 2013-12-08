@@ -1,33 +1,26 @@
 # thegreatsunra.com
 
-Source code for [thegreatsunra.com](http://thegreatsunra.com), written using [Assemble](http://assemble.io), [Grunt](http://gruntjs.com), [LESS](http://lesscss.org) and [Bower](http://bower.io).
+Source code for [thegreatsunra.com](http://thegreatsunra.com), written using [Propeller](http://propellerjs.cpm).
 
-## Getting Started
+* * *
 
-* Install [Node](http://nodejs.org)
+# Propeller
 
-* Globally install [Grunt](http://gruntjs.com/) and [Bower](http://bower.io/) by typing `sudo npm install -g grunt-cli bower` at the command line
+Static site generator in [Assemble](http://assemble.io) and [Bootstrap 3](http://getbootstrap.com) using [Handlebars](http://handlebarsjs.com) templates, with additional support for [RequireJS](http://requirejs.org), [Knockout](http://knockoutjs.com), [Moment.js](http://momentjs.com), [D3](http://d3js.org) and CSV parsing.
 
-* Fork, clone or download this repository
+## Quick Start
 
-``` bash
-git clone https://github.com/thegreatsunra/thegreatsunra-assemble.git
-```
+1. Download and install [Node](http://nodejs.org)
+1. At the command line install [Bower](http://bower.io) and [Grunt](http://gruntjs.com)  globally by typing `sudo npm install -g bower grunt-cli`
+1. Download and unzip (or clone) Propeller
+1. Open the unzipped folder at the command line
+1. Type `npm install && bower install` to install all dependencies
+1. Type `grunt build` to generate the static site
+1. Type `grunt` to start the development server and watch for changes
+1. Open [http://localhost:9000](http://localhost:9000) in your web browser to view the site
 
-* Install the project's Node and Bower dependencies
+## Additional Information
 
-``` bash
-git clone https://github.com/thegreatsunra/thegreatsunra-assemble.git
-cd thegreatsunra-assemble
-npm install && bower install
-```
-
-* Type `grunt server` to generate the static site and start a local development server
-
-* Open [http://localhost:9000](http://localhost:9000) in your web browser to view the static site (minus the content images, which are not included in the repository)
-
-* Start hacking away by modifying the contents of the `src` directory
-
-* With `grunt server` running, changes to any files (including layouts, templates, pages and LESS files) will be detected, and the static site will be automatically regenerated
-
-* To understand what's going on behind the scenes, take a look at the `Gruntfile.js` file
+* Propeller uses [Assemble](http://assemble.io) and [Handlebars](http://handlebarsjs.com) as its templating engine
+* When the server is running it monitors for file updates, and automatically regenerates the static files
+* The server also monitors for changes to [LESS](http://lesscss.org) files, and automatically compiles them into static CSS files when updated
