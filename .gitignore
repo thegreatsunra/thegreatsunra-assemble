@@ -2,34 +2,30 @@
 # thegreatsunra
 # ================
 # Ignore all images
-src/public/images/*
+src/app/img/*
 
 # Except icons and layout images
-!src/public/images/icons
-!src/public/images/diag*
-
-# Ignore Bower components
-src/components
-
+!src/app/img/icons
+!src/app/img/diag*
 
 # ================
-# Assemble
+# Propeller
 # ================
 dist
+src/app/components
 
 
 # ================
-# Assemble Defaults
+# Node
 # ================
 lib-cov
 *.seed
 *.log
-*.csv
+# *.csv
 *.dat
 *.out
 *.pid
 *.gz
-*.yo-rc.json
 
 pids
 logs
@@ -38,10 +34,12 @@ results
 npm-debug.log
 node_modules
 
+
 # ================
 # SublimeText
 # ================
-*.sublime-*
+*.sublime-workspace
+
 
 # ================
 # TextMate
@@ -50,6 +48,7 @@ node_modules
 *.tmproject
 tmtags
 
+
 # ================
 # OS X
 # ================
@@ -57,11 +56,13 @@ tmtags
 .AppleDouble
 .LSOverride
 Icon
+
 # Thumbnails
 ._*
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
+
 
 # ================
 # LINUX
@@ -70,13 +71,16 @@ Icon
 !.gitignore
 *~
 
+
 # ================
 # WINDOWS
 # ================
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
+
 # Folder config file
 Desktop.ini
+
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
