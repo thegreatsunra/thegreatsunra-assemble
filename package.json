@@ -1,7 +1,7 @@
 {
   "name": "thegreatsunra-propeller",
   "description": "Source code for thegreatsunra.com written using Propeller",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "homepage": "http://thegreatsunra.com",
   "author": "Dane Petersen",
   "scripts": {
