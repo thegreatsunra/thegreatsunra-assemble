@@ -36,8 +36,7 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-convert": "~0.1.6",
     "load-grunt-tasks": "~0.2.0",
-    "lodash": "~2.4.0",
-    "permalinks": "~0.1.9"
+    "lodash": "~2.4.0"
   },
   "engines": {
     "node": ">=0.10.0"
