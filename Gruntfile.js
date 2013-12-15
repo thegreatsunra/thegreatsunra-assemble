@@ -45,7 +45,7 @@ module.exports = function(grunt) {
 
     // run jshint against all javascripts, including Gruntfile
     jshint: {
-      files: ['Gruntfile.js', '<%= config.src %>/<%= config.jsFolder %>/*.js']
+      files: ['Gruntfile.js', '<%= config.src %>/<%= config.jsFolder %>/**/.js']
     },
 
     // copy assets into root of destination
@@ -120,17 +120,29 @@ module.exports = function(grunt) {
         options: {
           compress: false
         },
-        files: {
-          "<%= config.dist %>/<%= config.cssFolder %>/<%= config.cssMainFile %>.css": "<%= config.src %>/<%= config.cssFolder %>/<%= config.cssMainFile %>.less"
-        }
+        files: [
+          {
+            expand: true,
+            cwd: '<%= config.src %>/<%= config.cssFolder %>/',
+            src: ['**/*.{less,css}', '!_*'],
+            dest: '<%= config.dist %>/<%= config.cssFolder %>/',
+            ext: '.css'
+          }
+        ]
       },
       production: {
         options: {
           compress: true
         },
-        files: {
-          "<%= config.dist %>/<%= config.cssFolder %>/<%= config.cssMainFile %>.min.css": "<%= config.src %>/<%= config.cssFolder %>/<%= config.cssMainFile %>.less"
-        }
+        files: [
+          {
+            expand: true,
+            cwd: '<%= config.src %>/<%= config.cssFolder %>/',
+            src: ['**/*.{less,css}', '!_*'],
+            dest: '<%= config.dist %>/<%= config.cssFolder %>/',
+            ext: '.min.css'
+          }
+        ]
       }
     },
 
@@ -138,6 +150,7 @@ module.exports = function(grunt) {
     assemble: {
       options: {
         plugins: ['assemble-contrib-permalinks'],
+        helpers: ['<%= config.src %>/assemble/helpers/**/*.js'],
         permalinks: {
           structure: ':basename/index.html'
         }
@@ -184,36 +197,6 @@ module.exports = function(grunt) {
       }
     },
 
-    // watch for file changes and run tasks in response
-    watch: {
-      js: {
-        files: ['<%= jshint.files %>'],
-        tasks: ['jshint', 'copy:js']
-      },
-      assemble: {
-        files: ['<%= config.src %>/assemble/**/*.{hbs,yml,json}'],
-        tasks: ['assemble']
-      },
-      less: {
-        files: ['<%= config.src %>/<%= config.cssFolder %>/*.{css,less}'],
-        tasks: ['less']
-      },
-      data: {
-        files: ['<%= config.src %>/<%= config.dataFolder %>/*.csv'],
-        tasks: ['convert']
-      },
-      livereload: {
-        options: {
-          livereload: '<%= connect.options.livereload %>'
-        },
-        files: [
-          '<%= config.dist %>/**/*.html',
-          '<%= config.dist %>/<%= config.cssFolder %>/*.css',
-          '<%= config.dist %>/<%= config.jsFolder %>/*.js'
-        ]
-      }
-    },
-
     // convert all CSV files into JSON files
     convert: {
       csvs: {
@@ -227,7 +210,37 @@ module.exports = function(grunt) {
           }
         ]
       }
-    }
+    },
+
+    // watch for file changes and run tasks in response
+    watch: {
+      js: {
+        files: ['<%= jshint.files %>'],
+        tasks: ['jshint', 'copy:js']
+      },
+      assemble: {
+        files: ['<%= config.src %>/assemble/**/*.{hbs,yml,json}'],
+        tasks: ['assemble']
+      },
+      less: {
+        files: ['<%= config.src %>/<%= config.cssFolder %>/**/*.{css,less}'],
+        tasks: ['less']
+      },
+      data: {
+        files: ['<%= config.src %>/<%= config.dataFolder %>/**/*.csv'],
+        tasks: ['convert', 'copy:data']
+      },
+      livereload: {
+        options: {
+          livereload: '<%= connect.options.livereload %>'
+        },
+        files: [
+          '<%= config.dist %>/**/*.html',
+          '<%= config.dist %>/<%= config.cssFolder %>/**/*.css',
+          '<%= config.dist %>/<%= config.jsFolder %>/**/*.js'
+        ]
+      }
+    },
   });
 
   // automatically load all grunt-* tasks in --save-dev

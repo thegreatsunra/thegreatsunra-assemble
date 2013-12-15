@@ -11,8 +11,8 @@ src/app/img/*
 # ================
 # Propeller
 # ================
-dist
-src/app/components
+/dist
+/src/app/components
 
 
 # ================

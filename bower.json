@@ -1,6 +1,6 @@
 {
   "name": "thegreatsunra-propeller",
-  "version": "0.3.9",
+  "version": "0.4.1",
   "homepage": "http://thegreatsunra.com",
   "authors": [
     "Dane Petersen"
@@ -16,7 +16,7 @@
   ],
   "dependencies": {
     "jquery": "~2.0.3",
-    "lesshat": "~2.0.9",
+    "lesshat": "~2.0.13",
     "html5-boilerplate": "~4.3.0"
   }
 }

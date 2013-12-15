@@ -4,7 +4,7 @@ component: nav
 <!-- Nav
 ================================================== -->
 <ul>
-  <li class="nav-home{{#is slug "home"}} active{{/is}}">
+  <li class="nav-home{{#is page.slug "home"}} active{{/is}}">
     <a href="/">Home</a>
   </li>
   <li class="nav-portfolio{{#is basename "portfolio"}} active{{/is}}{{#contains dirname "portfolio"}} active{{/contains}}">
