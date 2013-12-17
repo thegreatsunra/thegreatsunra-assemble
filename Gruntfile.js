@@ -45,7 +45,7 @@ module.exports = function(grunt) {
 
     // run jshint against all javascripts, including Gruntfile
     jshint: {
-      files: ['Gruntfile.js', '<%= config.src %>/<%= config.jsFolder %>/**/.js']
+      files: ['Gruntfile.js', '<%= config.src %>/<%= config.jsFolder %>/**/*.js']
     },
 
     // copy assets into root of destination
@@ -111,10 +111,11 @@ module.exports = function(grunt) {
 
     // clean out destination folder by brute force
     clean: {
-      main: ['<%= config.dist %>/**/*', '<%= config.dist %>/.htaccess', '<%= config.src %>/assemble/<%= config.dataFolder %>/*.json'],
+      main: ['<%= config.dist %>/**/*', '<%= config.dist %>/.*', '<%= config.src %>/assemble/<%= config.dataFolder %>/*.json'],
     },
 
-    // compile LESS manifest file into CSS
+    // compile all non-partial LESS files into CSS
+    // and copy all CSS files into their appropriate location as well
     less: {
       development: {
         options: {
@@ -159,8 +160,8 @@ module.exports = function(grunt) {
         options: {
           flatten: true,
           layout: '<%= config.src %>/assemble/layouts/default.hbs',
-          data: '<%= config.src %>/assemble/data/*.{json,yml}',
-          partials: '<%= config.src %>/assemble/partials/*.hbs'
+          data: '<%= config.src %>/assemble/data/**/*.{json,yml}',
+          partials: '<%= config.src %>/assemble/partials/**/*.hbs'
         },
         files: {
           '<%= config.dist %>/': ['<%= config.src %>/assemble/pages/*.hbs']
@@ -170,11 +171,11 @@ module.exports = function(grunt) {
         options: {
           flatten: true,
           layout: '<%= config.src %>/assemble/layouts/default.hbs',
-          data: '<%= config.src %>/assemble/data/*.{json,yml}',
-          partials: '<%= config.src %>/assemble/partials/*.hbs'
+          data: '<%= config.src %>/assemble/data/**/*.{json,yml}',
+          partials: '<%= config.src %>/assemble/partials/**/*.hbs'
         },
         files: {
-          '<%= config.dist %>/portfolio/': ['<%= config.src %>/assemble/pages/portfolio/*.hbs']
+          '<%= config.dist %>/portfolio/': ['<%= config.src %>/assemble/pages/portfolio/**/*.hbs']
         }
       }
     },
@@ -197,14 +198,14 @@ module.exports = function(grunt) {
       }
     },
 
-    // convert all CSV files into JSON files
+    // convert all CSV files into JSON files for Assemble
     convert: {
       csvs: {
         files: [
           {
             expand: true,
             cwd: '<%= config.src %>/<%= config.dataFolder %>/',
-            src: ['*.csv'],
+            src: ['**/*.csv'],
             dest: '<%= config.src %>/assemble/data/',
             ext: '.json'
           }
@@ -237,7 +238,8 @@ module.exports = function(grunt) {
         files: [
           '<%= config.dist %>/**/*.html',
           '<%= config.dist %>/<%= config.cssFolder %>/**/*.css',
-          '<%= config.dist %>/<%= config.jsFolder %>/**/*.js'
+          '<%= config.dist %>/<%= config.jsFolder %>/**/*.js',
+          '<%= config.dist %>/<%= config.dataFolder %>/**/*.csv'
         ]
       }
     },
