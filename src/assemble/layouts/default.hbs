@@ -16,8 +16,8 @@
     <meta name="description" content="Dane Petersen is a coder, designer and sketcher. He builds software for jet engines at GE in California.">
     <meta name="keywords" content="dane petersen, thegreatsunra, brainside out, ux, designer, interaction, portfolio, developer, minnesota, oregon, indiana, bay area, san francisco">
     <meta name="author" content="{{site.author}}">
-    <link rel="stylesheet" href="/{{site.cssFolder}}/{{site.cssMainFile}}.min.css">
     <meta name="generator" content="Propeller 0.4.3">
+    {{> styles }}
   </head>
   <body class="body-{{slug}}">
     <div class="wrap">
@@ -40,20 +40,12 @@
       <div class="bottom-wrap">
         <div class="container">
           <footer>
-            {{> social-icons}}
+            {{> social-icons }}
             <p>Copyright &copy; 2001 &mdash; {{site.year}} {{site.author}}. All rights reserved. <a href="/colophon" title="Colophon for thegreatsunra.com">Colophon.</a></p>
           </footer>
         </div>
       </div>
     </div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="/{{site.componentsFolder}}/jquery/jquery.min.js"><\/script>')</script>
-    <script src="/{{site.jsFolder}}/{{site.jsMainFile}}.min.js"></script>
-    <script>
-      var _gaq=[['_setAccount','UA-321702-1'],['_trackPageview']];
-      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-      g.src='//www.google-analytics.com/ga.js';
-      s.parentNode.insertBefore(g,s)}(document,'script'));
-    </script>
+    {{> scripts }}
   </body>
 </html>
