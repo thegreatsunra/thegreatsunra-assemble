@@ -18,35 +18,8 @@ src/app/img/*
 # ================
 # Node
 # ================
-lib-cov
-*.seed
-*.log
-# *.csv
-*.dat
-*.out
-*.pid
-*.gz
-
-pids
-logs
-results
-
 npm-debug.log
 node_modules
-
-
-# ================
-# SublimeText
-# ================
-*.sublime-workspace
-
-
-# ================
-# TextMate
-# ================
-*.tmproj
-*.tmproject
-tmtags
 
 
 # ================
@@ -59,6 +32,7 @@ Icon
 
 # Thumbnails
 ._*
+
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
@@ -84,3 +58,17 @@ Desktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
+
+
+# ================
+# SublimeText
+# ================
+*.sublime-workspace
+
+
+# ================
+# TextMate
+# ================
+*.tmproj
+*.tmproject
+tmtags
