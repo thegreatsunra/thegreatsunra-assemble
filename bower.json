@@ -1,11 +1,11 @@
 {
   "name": "thegreatsunra-propeller",
+  "description": "Source code for thegreatsunra.com written using Propeller",
   "version": "0.4.3",
   "homepage": "http://thegreatsunra.com",
   "authors": [
     "Dane Petersen"
   ],
-  "description": "Source code for thegreatsunra.com written using Propeller",
   "license": "CC BY-NC-SA 3.0",
   "ignore": [
     "**/.*",
@@ -15,8 +15,8 @@
     "tests"
   ],
   "dependencies": {
+    "html5-boilerplate": "~4.3.0",
     "jquery": "~2.0.3",
-    "lesshat": "~2.0.13",
-    "html5-boilerplate": "~4.3.0"
+    "lesshat": "~2.0.13"
   }
 }
