@@ -1,4 +1,4 @@
-// Generated using generator-propeller 0.3.3
+// Generated using generator-propeller 0.5.6
 'use strict';
 
 // # Globbing
@@ -61,11 +61,15 @@ module.exports = function (grunt) {
       },
       assemble: {
         files: ['<%= config.src %>/assemble/{helpers,layouts,partials}/{,*/}*.{hbs,yml,json,js}'],
-        tasks: ['assemble']
+        tasks: ['newer:assemble']
       },
       data: {
         files: ['<%= config.src %>/<%= config.dataFolder %>/{,*/}*.csv'],
         tasks: ['newer:convert', 'newer:assemble', 'newer:copy:dist']
+      },
+      img: {
+        files: ['<%= config.src %>/<%= config.imgFolder %>/{,*/}*'],
+        tasks: ['newer:copy:dist']
       },
       livereload: {
         options: {
@@ -75,8 +79,9 @@ module.exports = function (grunt) {
           '<%= config.dist %>/{,*/}*.html',
           '<%= config.dist %>/<%= config.cssFolder %>/{,*/}*.css',
           '<%= config.dist %>/<%= config.jsFolder %>/{,*/}*.js',
+          '<%= config.dist %>/<%= config.fontsFolder %>/{,*/}*',
           '<%= config.dist %>/<%= config.dataFolder %>/{,*/}*.csv',
-          '<%= config.dist %>/<%= config.imgFolder %>/**/.{png,jpg,jpeg,gif,webp,svg,pdf,zip}'
+          '<%= config.dist %>/<%= config.imgFolder %>/{,*/}*'
         ]
       }
     },
@@ -147,9 +152,10 @@ module.exports = function (grunt) {
             '*.html',
             'views/{,*/}*.html',
             '<%= config.componentsFolder %>/**/*',
-            '<%= config.imgFolder %>/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,zip}',
-            '<%= config.fontsFolder %>/*',
-            '<%= config.dataFolder %>/{,*/}*'
+            '<%= config.imgFolder %>/{,*/}*',
+            '<%= config.fontsFolder %>/{,*/}*',
+            '<%= config.dataFolder %>/{,*/}*',
+            '<%= config.imgFolder %>/{,*/}*',
             // '<%= config.jsFolder %>/{,*/}*.js' // handled via concat and uglify
           ]
         }]
@@ -235,6 +241,7 @@ module.exports = function (grunt) {
         permalinks: {
           structure: ':basename/index.html'
         }
+        // postprocess: require('pretty')
       },
       pages: {
         options: {
