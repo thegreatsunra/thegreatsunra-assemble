@@ -15,7 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "html5-boilerplate": "~5.0.0",
+    "html5-boilerplate": "~5.1.0",
     "lesshat": "~3.0.2",
     "jquery": "~2.1.3"
   }
